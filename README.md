@@ -6,7 +6,7 @@
 # ☸ k8s clusters backed by Flux v2
 
 Kubernetes clusters using the [GitOps](https://www.weave.works/blog/what-is-gitops-really) tool [Flux](https://fluxcd.io/).  
-The Git repository is the driving the state of the Kubernetes clusters.  
+The Git repository is driving the state of the Kubernetes clusters.
 The awesome [Flux SOPS integration](https://toolkit.fluxcd.io/guides/mozilla-sops/) is used to encrypt secrets with age.
 
 ## 📂 Repository structure
