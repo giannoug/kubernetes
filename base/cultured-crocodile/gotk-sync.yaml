@@ -7,8 +7,8 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: main
-  url: https://github.com/giannoug/flux2-gitops.git
+    branch: master
+  url: https://github.com/giannoug/kubernetes.git
   # secretRef:
   #   name: flux-system
 ---
