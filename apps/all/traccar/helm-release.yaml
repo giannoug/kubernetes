@@ -1,0 +1,128 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: traccar
+  namespace: selfhosted
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  values:
+    image:
+      repository: traccar/traccar
+      tag: "5.5-ubuntu"
+      pullPolicy: IfNotPresent
+    env:
+      CONFIG_USE_ENVIRONMENT_VARIABLES: true
+      LOGGER_CONSOLE: true
+      GEOCODER_URL: https://eu1.locationiq.com/v1/reverse.php
+      SERVER_STATISTICS:
+      DATABASE_DRIVER: org.postgresql.Driver
+      DATABASE_HOST:
+        valueFrom:
+          secretKeyRef:
+            name: traccar-secrets
+            key: DATABASE_HOST
+      DATABASE_NAME:
+        valueFrom:
+          secretKeyRef:
+            name: traccar-secrets
+            key: DATABASE_NAME
+      DATABASE_URL: jdbc:postgresql://$(DATABASE_HOST):5432/$(DATABASE_NAME)
+      DATABASE_USER:
+        valueFrom:
+          secretKeyRef:
+            name: traccar-secrets
+            key: DATABASE_USER
+      DATABASE_PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            name: traccar-secrets
+            key: DATABASE_PASSWORD
+      MAIL_SMTP_HOST:
+        valueFrom:
+          secretKeyRef:
+            name: traccar-secrets
+            key: MAIL_SMTP_HOST
+      MAIL_SMTP_PORT:
+        valueFrom:
+          secretKeyRef:
+            name: traccar-secrets
+            key: MAIL_SMTP_PORT
+      MAIL_SMTP_STARTTLS_ENABLE:
+        valueFrom:
+          secretKeyRef:
+            name: traccar-secrets
+            key: MAIL_SMTP_STARTTLS_ENABLE
+      MAIL_SMTP_FROM:
+        valueFrom:
+          secretKeyRef:
+            name: traccar-secrets
+            key: MAIL_SMTP_FROM
+      MAIL_SMTP_AUTH:
+        valueFrom:
+          secretKeyRef:
+            name: traccar-secrets
+            key: MAIL_SMTP_AUTH
+      MAIL_SMTP_USERNAME:
+        valueFrom:
+          secretKeyRef:
+            name: traccar-secrets
+            key: MAIL_SMTP_AUTH
+      MAIL_SMTP_PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            name: traccar-secrets
+            key: MAIL_SMTP_AUTH
+      NOTIFICATOR_TYPES: web,mail,traccar
+      NOTIFICATOR_TRACCAR_KEY:
+        valueFrom:
+          secretKeyRef:
+            name: traccar-secrets
+            key: NOTIFICATOR_TRACCAR_KEY
+      REPORT_TRIP_USEIGNITION: true
+    service:
+      main:
+        ports:
+          http:
+            port: 8082
+      devices:
+        enabled: true
+        type: LoadBalancer
+        ports:
+          osmand:
+            enabled: true
+            port: 5055
+            protocol: TCP
+          h02:
+            enabled: true
+            port: 5013
+            protocol: TCP
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          traefik.ingress.kubernetes.io/router.middlewares: networking-hsts@kubernetescrd, networking-http-to-https@kubernetescrd, networking-security@kubernetescrd, networking-www-to-non-www@kubernetescrd, networking-x-robots@kubernetescrd
+        hosts:
+          - host: "${TRACCAR_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - secretName: traccar-domain-tls 
+            hosts: ["${TRACCAR_DOMAIN}"]
+    persistence:
+      data:
+        enabled: true
+        accessMode: ReadWriteOnce
+        size: 1Gi
+    podSecurityContext:
+      fsGroup: 1000

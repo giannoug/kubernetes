@@ -1,0 +1,10 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- hsts-middleware.yaml
+- http-to-https-middleware.yaml
+- security-middleware.yaml
+- www-to-non-www-middleware.yaml
+- x-robots-middleware.yaml
+- helm-release.yaml

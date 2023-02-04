@@ -1,0 +1,37 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: traefik
+  namespace: networking
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: traefik
+      version: 20.8.0
+      sourceRef:
+        kind: HelmRepository
+        name: traefik-charts
+        namespace: flux-system
+  values:
+    providers:
+      kubernetesCRD:
+        allowCrossNamespace: true
+
+    globalArguments: # Override list to remove chart's preset "--global.sendanonymoususage" value
+      - "--global.checknewversion"
+
+    # Based on https://ssl-config.mozilla.org/#server=traefik&version=2.1.2&config=intermediate&hsts=false&guideline=5.6
+    # Options referenced from here: https://github.com/traefik/traefik-helm-chart/blob/master/traefik/crds/tlsoptions.yaml
+    tlsOptions:
+      default:
+        cipherSuites:
+          - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+          - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+          - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+          - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+          - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
+          - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+        minVersion: VersionTLS12
+        sniStrict: true

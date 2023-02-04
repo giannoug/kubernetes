@@ -1,0 +1,13 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: security
+  namespace: networking
+spec:
+  headers:
+    customFrameOptionsValue: SAMEORIGIN
+    # This should be avoided:
+    # https://community.traefik.io/t/redirectscheme-scheme-https-vs-headers-sslredirect-true/4274/2
+    # sslRedirect: true
+    browserXssFilter: true
+    contentTypeNosniff: true

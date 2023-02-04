@@ -1,0 +1,13 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: vault-1
+  namespace: velero
+spec:
+  schedule: 0 */3 * * *
+  template:
+    # snapshotVolumes: true
+    storageLocation: scaleway
+    # # The list of locations in which to store volume snapshots created for this backup.
+    # volumeSnapshotLocations:
+    #   - default

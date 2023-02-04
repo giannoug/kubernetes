@@ -1,0 +1,13 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- bjw-s-charts.yaml
+- groundhog2k-charts.yaml
+- ealenn-charts.yaml
+- grafana-charts.yaml
+- jetstack-charts.yaml
+- metrics-server-charts.yaml
+- prometheus-charts.yaml
+- traefik-charts.yaml
+- vmware-tanzu-charts.yaml
