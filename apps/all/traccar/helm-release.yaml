@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: traccar/traccar
-      tag: "5.5-ubuntu"
+      tag: "5.6-ubuntu"
       pullPolicy: IfNotPresent
     env:
       CONFIG_USE_ENVIRONMENT_VARIABLES: true
