@@ -4,7 +4,7 @@ metadata:
   name: vault-1
   namespace: velero
 spec:
-  schedule: 0 */3 * * *
+  schedule: 0 */12 * * *
   template:
     # snapshotVolumes: true
     storageLocation: scaleway
