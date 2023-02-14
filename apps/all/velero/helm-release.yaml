@@ -32,6 +32,12 @@ spec:
         config:
           region: nl-ams
           s3Url: https://s3.nl-ams.scw.cloud
+      volumeSnapshotLocation:
+        name: scaleway
+        bucket: test-bucket
+        default: true
+        config:
+          region: nl-ams
+          s3Url: https://s3.nl-ams.scw.cloud
     credentials:
       existingSecret: scaleway-api-credentials-secret
-    snapshotsEnabled: false
