@@ -23,3 +23,5 @@ spec:
         psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
           ALTER DATABASE traccar OWNER TO traccar;
         EOSQL
+    storage:
+      requestedSize: 5G
