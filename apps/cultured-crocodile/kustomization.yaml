@@ -8,7 +8,7 @@ resources:
 - ../all/flux-system
 - ../all/kube-prometheus-stack
 - ../all/system-upgrade-controller
-# - ../all/traccar
+- ../all/traccar
 - ../all/traefik
 - ../all/velero
 - velero-schedule.yaml
