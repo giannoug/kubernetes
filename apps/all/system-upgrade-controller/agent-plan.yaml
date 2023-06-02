@@ -15,11 +15,10 @@ spec:
         operator: NotIn
         values:
           - "true"
-  cordon: true
   prepare:
     image: rancher/k3s-upgrade
     args:
       - "prepare"
-      - "k3s-server"
+      - "server"
   upgrade:
     image: rancher/k3s-upgrade
