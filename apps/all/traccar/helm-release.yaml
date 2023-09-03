@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: traccar/traccar
-      tag: "5.8-ubuntu"
+      tag: "5.9-ubuntu@sha256:c0fa1a31734d89730903455721341653de58ef6d144e6a8f9c5b87c5f742bdcc"
       pullPolicy: IfNotPresent
     env:
       CONFIG_USE_ENVIRONMENT_VARIABLES: true
