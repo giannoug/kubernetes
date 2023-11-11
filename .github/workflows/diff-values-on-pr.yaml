@@ -18,7 +18,7 @@ jobs:
       yaml_files: "${{ steps.filter.outputs.yaml_files }}"
     steps:
     - name: Checkout
-      uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4
+      uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
     - name: Get changes
       uses: dorny/paths-filter@v2
       id: filter
@@ -38,9 +38,9 @@ jobs:
         file: ${{ fromJson(needs.changes.outputs.yaml_files ) }}
     steps:
     - name: Checkout
-      uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4
+      uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
     - name: Checkout live branch
-      uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4
+      uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       with:
         ref: ${{ env.conf_live_branch }}
         path: live
