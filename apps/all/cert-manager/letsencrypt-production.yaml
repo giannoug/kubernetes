@@ -11,7 +11,7 @@ spec:
       name: letsencrypt-production
     solvers:
       - dns01:
-          digitalocean:
-            tokenSecretRef:
-              name: digitalocean-token-secret
-              key: access-token
+          cloudflare:
+            apiTokenSecretRef:
+              name: cloudflare-api-token-secret
+              key: api-token

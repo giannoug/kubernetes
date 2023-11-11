@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
 - namespace.yaml
 - helm-release.yaml
-- digitalocean-token-secret.sops.yaml
+- cloudflare-api-token-secret.sops.yaml
 - letsencrypt-production.yaml
 - letsencrypt-staging.yaml
 - service-monitor.yaml
