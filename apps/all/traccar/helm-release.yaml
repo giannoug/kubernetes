@@ -119,7 +119,9 @@ spec:
           - host: "${TRACCAR_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - secretName: traccar-domain-tls 
             hosts: ["${TRACCAR_DOMAIN}"]
