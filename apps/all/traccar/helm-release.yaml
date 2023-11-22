@@ -99,6 +99,7 @@ spec:
             port: 8082
       devices:
         enabled: true
+        controller: main
         type: LoadBalancer
         ports:
           osmand:
