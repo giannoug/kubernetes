@@ -15,79 +15,83 @@ spec:
         name: bjw-s-charts
         namespace: flux-system
   values:
-    image:
-      repository: traccar/traccar
-      tag: "5.10-ubuntu@sha256:eac8a7bb8f5325f8761839380828b3cd8a46dfe8c83253592d497f28fa2774b4"
-      pullPolicy: IfNotPresent
-    env:
-      CONFIG_USE_ENVIRONMENT_VARIABLES: true
-      LOGGER_CONSOLE: true
-      GEOCODER_URL: https://eu1.locationiq.com/v1/reverse.php
-      SERVER_STATISTICS:
-      DATABASE_DRIVER: org.postgresql.Driver
-      DATABASE_HOST:
-        valueFrom:
-          secretKeyRef:
-            name: traccar-secrets
-            key: DATABASE_HOST
-      DATABASE_NAME:
-        valueFrom:
-          secretKeyRef:
-            name: traccar-secrets
-            key: DATABASE_NAME
-      DATABASE_URL: jdbc:postgresql://$(DATABASE_HOST):5432/$(DATABASE_NAME)
-      DATABASE_USER:
-        valueFrom:
-          secretKeyRef:
-            name: traccar-secrets
-            key: DATABASE_USER
-      DATABASE_PASSWORD:
-        valueFrom:
-          secretKeyRef:
-            name: traccar-secrets
-            key: DATABASE_PASSWORD
-      MAIL_SMTP_HOST:
-        valueFrom:
-          secretKeyRef:
-            name: traccar-secrets
-            key: MAIL_SMTP_HOST
-      MAIL_SMTP_PORT:
-        valueFrom:
-          secretKeyRef:
-            name: traccar-secrets
-            key: MAIL_SMTP_PORT
-      MAIL_SMTP_STARTTLS_ENABLE:
-        valueFrom:
-          secretKeyRef:
-            name: traccar-secrets
-            key: MAIL_SMTP_STARTTLS_ENABLE
-      MAIL_SMTP_FROM:
-        valueFrom:
-          secretKeyRef:
-            name: traccar-secrets
-            key: MAIL_SMTP_FROM
-      MAIL_SMTP_AUTH:
-        valueFrom:
-          secretKeyRef:
-            name: traccar-secrets
-            key: MAIL_SMTP_AUTH
-      MAIL_SMTP_USERNAME:
-        valueFrom:
-          secretKeyRef:
-            name: traccar-secrets
-            key: MAIL_SMTP_AUTH
-      MAIL_SMTP_PASSWORD:
-        valueFrom:
-          secretKeyRef:
-            name: traccar-secrets
-            key: MAIL_SMTP_AUTH
-      NOTIFICATOR_TYPES: web,mail,traccar
-      NOTIFICATOR_TRACCAR_KEY:
-        valueFrom:
-          secretKeyRef:
-            name: traccar-secrets
-            key: NOTIFICATOR_TRACCAR_KEY
-      REPORT_TRIP_USEIGNITION: true
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: traccar/traccar
+              tag: "5.10-ubuntu@sha256:eac8a7bb8f5325f8761839380828b3cd8a46dfe8c83253592d497f28fa2774b4"
+              pullPolicy: IfNotPresent
+            env:
+              CONFIG_USE_ENVIRONMENT_VARIABLES: true
+              LOGGER_CONSOLE: true
+              GEOCODER_URL: https://eu1.locationiq.com/v1/reverse.php
+              SERVER_STATISTICS:
+              DATABASE_DRIVER: org.postgresql.Driver
+              DATABASE_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: traccar-secrets
+                    key: DATABASE_HOST
+              DATABASE_NAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: traccar-secrets
+                    key: DATABASE_NAME
+              DATABASE_URL: jdbc:postgresql://$(DATABASE_HOST):5432/$(DATABASE_NAME)
+              DATABASE_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: traccar-secrets
+                    key: DATABASE_USER
+              DATABASE_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: traccar-secrets
+                    key: DATABASE_PASSWORD
+              MAIL_SMTP_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: traccar-secrets
+                    key: MAIL_SMTP_HOST
+              MAIL_SMTP_PORT:
+                valueFrom:
+                  secretKeyRef:
+                    name: traccar-secrets
+                    key: MAIL_SMTP_PORT
+              MAIL_SMTP_STARTTLS_ENABLE:
+                valueFrom:
+                  secretKeyRef:
+                    name: traccar-secrets
+                    key: MAIL_SMTP_STARTTLS_ENABLE
+              MAIL_SMTP_FROM:
+                valueFrom:
+                  secretKeyRef:
+                    name: traccar-secrets
+                    key: MAIL_SMTP_FROM
+              MAIL_SMTP_AUTH:
+                valueFrom:
+                  secretKeyRef:
+                    name: traccar-secrets
+                    key: MAIL_SMTP_AUTH
+              MAIL_SMTP_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: traccar-secrets
+                    key: MAIL_SMTP_AUTH
+              MAIL_SMTP_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: traccar-secrets
+                    key: MAIL_SMTP_AUTH
+              NOTIFICATOR_TYPES: web,mail,traccar
+              NOTIFICATOR_TRACCAR_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: traccar-secrets
+                    key: NOTIFICATOR_TRACCAR_KEY
+              REPORT_TRIP_USEIGNITION: true
     service:
       main:
         ports:
