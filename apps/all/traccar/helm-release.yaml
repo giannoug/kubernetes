@@ -123,9 +123,6 @@ spec:
                 service:
                   name: main
                   port: http
-        tls:
-          - secretName: traccar-domain-tls 
-            hosts: ["${TRACCAR_DOMAIN}"]
     persistence:
       data:
         enabled: true
